@@ -1,1 +1,1 @@
-template-service
+ordering-service
