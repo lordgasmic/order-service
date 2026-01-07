@@ -21,8 +21,8 @@ public class PrintMapper {
         printRequest.setType(orderRequest.getType());
 
         final Map<String, String[]> properties = new HashMap<>();
-        if (orderRequest.getItems() != null) {// todo: flawed:  skips over key
-            for (final Map.Entry<String, List<OrderExtra>> entry : orderRequest.getItems().entrySet()) {
+        if (orderRequest.getProperties() != null) {// todo: flawed:  skips over key
+            for (final Map.Entry<String, List<OrderExtra>> entry : orderRequest.getProperties().entrySet()) {
                 properties.put(entry.getKey(), entry.getValue().stream().map(OrderExtra::getExtra).toArray(String[]::new));
             }
         }

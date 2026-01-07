@@ -11,5 +11,5 @@ public class OrderRequest {
     private String user;
     private String message;
     private String type;
-    private Map<String, List<OrderExtra>> items;
+    private Map<String, List<OrderExtra>> properties;
 }

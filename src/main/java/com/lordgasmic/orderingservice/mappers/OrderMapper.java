@@ -36,8 +36,8 @@ public class OrderMapper {
         final OrderEntity entity = new OrderEntity();
         entity.setUser(request.getUser());
 
-        if (request.getItems() != null) { // todo: flawed:  skips over key
-            for (final Map.Entry<String, List<OrderExtra>> entry : request.getItems().entrySet()) {
+        if (request.getProperties() != null) { // todo: flawed:  skips over key
+            for (final Map.Entry<String, List<OrderExtra>> entry : request.getProperties().entrySet()) {
                 final OrderItemEntity itemEntity = new OrderItemEntity();
                 itemEntity.setItem(entry.getKey());
                 itemEntity.setExtras(new ArrayList<>());
