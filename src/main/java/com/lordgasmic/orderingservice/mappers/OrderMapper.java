@@ -35,22 +35,21 @@ public class OrderMapper {
     public static OrderEntity toOrderEntity(final OrderRequest request) {
         final OrderEntity entity = new OrderEntity();
         entity.setUser(request.getUser());
+        entity.setItems(new ArrayList<>());
 
-        if (request.getProperties() != null) { // todo: flawed:  skips over key
-            for (final Map.Entry<String, List<OrderExtra>> entry : request.getProperties().entrySet()) {
-                final OrderItemEntity itemEntity = new OrderItemEntity();
-                itemEntity.setItem(entry.getKey());
-                itemEntity.setExtras(new ArrayList<>());
+        for (final Map.Entry<String, List<OrderExtra>> entry : request.getProperties().entrySet()) {
+            final OrderItemEntity itemEntity = new OrderItemEntity();
+            itemEntity.setItem(entry.getKey());
+            itemEntity.setExtras(new ArrayList<>());
 
-                for (final OrderExtra extra : entry.getValue()) {
-                    final OrderExtrasEntity extrasEntity = new OrderExtrasEntity();
-                    extrasEntity.setExtra(extra.getExtra());
-                    extrasEntity.setType(extra.getType());
-                    itemEntity.getExtras().add(extrasEntity);
-                }
-
-                entity.getItems().add(itemEntity);
+            for (final OrderExtra extra : entry.getValue()) {
+                final OrderExtrasEntity extrasEntity = new OrderExtrasEntity();
+                extrasEntity.setExtra(extra.getExtra());
+                extrasEntity.setType(extra.getType());
+                itemEntity.getExtras().add(extrasEntity);
             }
+
+            entity.getItems().add(itemEntity);
         }
 
         return entity;
