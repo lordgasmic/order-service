@@ -1,4 +1,4 @@
-create or replace view order_vw as select * from order;
+create or replace view order_vw as select * from lgc_order;
 grant SELECT,INSERT on order_db.order_vw to 'order_user'@'%';
 
 create or replace view order_item_vw as select * from order_item;

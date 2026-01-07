@@ -1,4 +1,4 @@
-create table order (
+create table lgc_order (
     id bigint auto_increment primary key,
     user nvarchar(255) not null,
     created_at datetime default current_timestamp
@@ -22,7 +22,7 @@ create table order_extras (
 create table menu (
     id bigint auto_increment primary key,
     item nvarchar(255) not null
-)
+);
 
 create table menu_extras (
     id bigint auto_increment ,
