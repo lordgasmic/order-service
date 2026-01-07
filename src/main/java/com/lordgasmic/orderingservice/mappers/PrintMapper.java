@@ -17,8 +17,10 @@ public class PrintMapper {
         printRequest.setType(orderRequest.getType());
 
         final Map<String, String[]> properties = new HashMap<>();
-        for (final Map.Entry<String, List<OrderExtra>> entry : orderRequest.getItems().entrySet()) {
-            properties.put(entry.getKey(), entry.getValue().stream().map(OrderExtra::getExtra).toArray(String[]::new));
+        if (orderRequest.getItems() != null) {
+            for (final Map.Entry<String, List<OrderExtra>> entry : orderRequest.getItems().entrySet()) {
+                properties.put(entry.getKey(), entry.getValue().stream().map(OrderExtra::getExtra).toArray(String[]::new));
+            }
         }
         printRequest.setProperties(properties);
 
