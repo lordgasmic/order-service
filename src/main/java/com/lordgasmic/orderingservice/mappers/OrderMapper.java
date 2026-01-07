@@ -36,19 +36,21 @@ public class OrderMapper {
         final OrderEntity entity = new OrderEntity();
         entity.setUser(request.getUser());
 
-        for (final Map.Entry<String, List<OrderExtra>> entry : request.getItems().entrySet()) {
-            final OrderItemEntity itemEntity = new OrderItemEntity();
-            itemEntity.setItem(entry.getKey());
-            itemEntity.setExtras(new ArrayList<>());
+        if (request.getItems() != null) { // todo: flawed:  skips over key
+            for (final Map.Entry<String, List<OrderExtra>> entry : request.getItems().entrySet()) {
+                final OrderItemEntity itemEntity = new OrderItemEntity();
+                itemEntity.setItem(entry.getKey());
+                itemEntity.setExtras(new ArrayList<>());
 
-            for (final OrderExtra extra : entry.getValue()) {
-                final OrderExtrasEntity extrasEntity = new OrderExtrasEntity();
-                extrasEntity.setExtra(extra.getExtra());
-                extrasEntity.setType(extra.getType());
-                itemEntity.getExtras().add(extrasEntity);
+                for (final OrderExtra extra : entry.getValue()) {
+                    final OrderExtrasEntity extrasEntity = new OrderExtrasEntity();
+                    extrasEntity.setExtra(extra.getExtra());
+                    extrasEntity.setType(extra.getType());
+                    itemEntity.getExtras().add(extrasEntity);
+                }
+
+                entity.getItems().add(itemEntity);
             }
-
-            entity.getItems().add(itemEntity);
         }
 
         return entity;
