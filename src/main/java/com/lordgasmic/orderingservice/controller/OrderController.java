@@ -3,16 +3,14 @@ package com.lordgasmic.orderingservice.controller;
 import com.lordgasmic.orderingservice.models.OrderRequest;
 import com.lordgasmic.orderingservice.models.OrderResponse;
 import com.lordgasmic.orderingservice.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class OrderController {
 
     private final OrderService orderService;
@@ -28,6 +26,7 @@ public class OrderController {
 
     @PutMapping("/api/v1/orders")
     public ResponseEntity<Void> putOrder(@RequestBody final OrderRequest order) {
+        log.info("LGC-0802f4ad-36db-4b68-be22-35c01b5ccb41: order: {}", order);
         orderService.putOrder(order);
         return ResponseEntity.accepted().build();
     }
