@@ -1,6 +1,7 @@
 package com.lordgasmic.orderingservice.service;
 
 import com.google.gson.Gson;
+import com.lordgasmic.orderingservice.models.PrintRequest;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,9 +26,8 @@ public class PrintService {
         this.gson = gson;
     }
 
-    public void send(final OrderingRequest request) {
+    public void send(final PrintRequest request) {
         final Message message = new Message(gson.toJson(request).getBytes(StandardCharsets.UTF_8));
         amqpTemplate.send(exchange, routingKey, message);
-        log.info("LGC:d6d65ca6-88fe-4c06-9521-cfbf3e10d561 - Sent order");
     }
 }

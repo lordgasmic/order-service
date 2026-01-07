@@ -2,8 +2,10 @@ package com.lordgasmic.orderingservice.service;
 
 import com.lordgasmic.orderingservice.entities.OrderEntity;
 import com.lordgasmic.orderingservice.mappers.OrderMapper;
+import com.lordgasmic.orderingservice.mappers.PrintMapper;
 import com.lordgasmic.orderingservice.models.OrderRequest;
 import com.lordgasmic.orderingservice.models.OrderResponse;
+import com.lordgasmic.orderingservice.models.PrintRequest;
 import com.lordgasmic.orderingservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,11 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final PrintService printService;
 
-    public OrderService(final OrderRepository orderRepository) {
+    public OrderService(final OrderRepository orderRepository, final PrintService printService) {
         this.orderRepository = orderRepository;
+        this.printService = printService;
     }
 
     public List<OrderResponse> getOrders() {
@@ -31,8 +35,10 @@ public class OrderService {
         return response;
     }
 
-
     public void putOrder(final OrderRequest request) {
+        final PrintRequest printRequest = PrintMapper.toPrintRequest(request);
+        printService.send(printRequest);
+
         final OrderEntity entity = OrderMapper.toOrderEntity(request);
         orderRepository.save(entity);
     }
