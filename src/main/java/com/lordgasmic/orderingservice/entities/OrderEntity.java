@@ -19,7 +19,7 @@ public class OrderEntity {
     @Column(name = "created_at", insertable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "order_id")
     private List<OrderItemEntity> items;
 }
