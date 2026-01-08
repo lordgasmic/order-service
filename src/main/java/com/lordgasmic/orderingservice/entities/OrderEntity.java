@@ -1,12 +1,6 @@
 package com.lordgasmic.orderingservice.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -22,8 +16,8 @@ public class OrderEntity {
 
     private String user;
 
-    @Column(name ="created_at")
-    private LocalDateTime  createdAt;
+    @Column(name = "created_at", insertable = false)
+    private LocalDateTime createdAt;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
