@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class PrintService {
+public class PrintAdapter {
 
     @Value("${lordgasmic.rabbitmq.exchange}")
     private String exchange;
@@ -21,7 +21,7 @@ public class PrintService {
     private final AmqpTemplate amqpTemplate;
     private final Gson gson;
 
-    public PrintService(final AmqpTemplate amqpTemplate, final Gson gson) {
+    public PrintAdapter(final AmqpTemplate amqpTemplate, final Gson gson) {
         this.amqpTemplate = amqpTemplate;
         this.gson = gson;
     }

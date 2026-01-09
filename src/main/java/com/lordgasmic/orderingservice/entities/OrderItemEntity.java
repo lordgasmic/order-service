@@ -1,9 +1,10 @@
 package com.lordgasmic.orderingservice.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -17,8 +18,4 @@ public class OrderItemEntity {
     private long orderId;
 
     private String item;
-
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "order_item_id")
-    private List<OrderExtrasEntity> extras;
 }
