@@ -13,6 +13,7 @@ import com.lordgasmic.orderingservice.models.PrintRequest;
 import com.lordgasmic.orderingservice.repository.OrderExtrasRepository;
 import com.lordgasmic.orderingservice.repository.OrderItemRepository;
 import com.lordgasmic.orderingservice.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
