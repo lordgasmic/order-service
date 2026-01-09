@@ -11,7 +11,7 @@ import java.util.List;
 public class MenuEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String item;

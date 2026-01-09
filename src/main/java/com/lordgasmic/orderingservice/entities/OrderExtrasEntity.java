@@ -9,7 +9,7 @@ import lombok.Data;
 public class OrderExtrasEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "order_item_id")

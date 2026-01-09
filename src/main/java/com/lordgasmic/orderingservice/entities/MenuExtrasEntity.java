@@ -9,7 +9,7 @@ import lombok.Data;
 public class MenuExtrasEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "menu_id")
