@@ -16,9 +16,7 @@ import com.lordgasmic.orderingservice.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -37,16 +35,40 @@ public class OrderService {
     }
 
     public List<OrderResponse> getOrders() {
-        final Iterable<OrderEntity> orders = orderRepository.findAll();
-        for (final OrderEntity o : orders) {
-            log.info("LGC:lksjdf90s9djf: {}", o);
-        }
-        final List<OrderResponse> response = new ArrayList<>();
+        final List<OrderEntity> orders = orderRepository.findAll();
+
+        final List<Long> orderIds = orders.stream().map(OrderEntity::getId).toList();
+        final List<OrderItemEntity> orderItems = orderItemRepository.findByOrderIdIn(orderIds);
+
+        final List<Long> orderItemIds = orderItems.stream().map(OrderItemEntity::getId).toList();
+        final List<OrderExtrasEntity> orderExtras = orderEntityRepository.findByOrderItemIdIn(orderItemIds);
+
+
+        final List<OrderResponse> responses = new ArrayList<>();
         for (final OrderEntity order : orders) {
-            response.add(OrderMapper.toOrderResponse(order));
+            final OrderResponse response = OrderMapper.toOrderResponse(order);
+
+            final Map<String, List<String>> items = new HashMap<>();
+            // iterate over items to get items that match order
+            for (final OrderItemEntity orderItem : orderItems) {
+                if (order.getId() == orderItem.getOrderId()) {
+                    final List<String> extrasList = new ArrayList<>();
+
+                    for (final OrderExtrasEntity extras : orderExtras) {
+                        if (orderItem.getId() == extras.getOrderItemId()) {
+                            extrasList.add(extras.getExtra());
+                        }
+                    }
+
+                    items.put(orderItem.getItem(), extrasList);
+                }
+            }
+            response.setItems(items);
+
+            responses.add(response);
         }
 
-        return response;
+        return responses;
     }
 
     public void putOrder(final OrderRequest request) {
