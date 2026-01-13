@@ -38,7 +38,9 @@ public class OrderService {
 
     public List<OrderResponse> getOrders() {
         final Iterable<OrderEntity> orders = orderRepository.findAll();
-
+        for (final OrderEntity o : orders) {
+            log.info("LGC:lksjdf90s9djf: {}", o);
+        }
         final List<OrderResponse> response = new ArrayList<>();
         for (final OrderEntity order : orders) {
             response.add(OrderMapper.toOrderResponse(order));
